@@ -1,0 +1,10 @@
+title: home
+extends@: default
+
+form:
+  fields:
+    tabs:
+      fields:
+        content:
+          unset@: true
+          #fields:

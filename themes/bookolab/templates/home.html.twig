@@ -1,0 +1,56 @@
+{% extends 'partials/base.html.twig' %}
+{% block content %}
+<h1 class="titrebookolab"> Bookolab </h1>
+{% for section in page.header.custom.listesections %}
+            <div class="entree-section">
+                <h2>{{ section.nomsection|markdown }}</h2>
+                <div>{{ section.textesection|markdown }}</div>
+            </div>
+        {% endfor %}
+
+    <a href="admin" class="espace-editorial">Espace éditorial</a>
+
+    <h2> Projets éditoriaux en cours </h2>
+
+    <ul class="bookList">
+      {% for book in page.children %}
+    <ul>
+        <li>
+            <a class="boutton-book" href="{{ book.url }}">print</a> 
+            <a class="boutton-book" href="{{ book.url }}/web:true">web</a> · {{ book.title }}
+            
+            {% if book.children is not empty %}
+                <ul class="subPart">
+                    {% for partie in book.children %}
+                        <li><a class="boutton-book" href="{{ partie.url }}">print</a> · {{ partie.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+
+        {# function pour css parsing
+        {% for contrib in book.children %}
+
+          {% set splitcss = contrib.header.cssPrint|split("}") %}
+          {% set slug = ".contrib-" ~ contrib.slug %}
+          {% set newcss = [] %}
+          {% set csstemp = [] %}
+
+          {% for rule in splitcss %}
+            {% if rule != "" %}
+              {% set csstemp = [ slug , rule|replace({"\n": "", "\r": "", "\t": ""}) ]%}
+              {% set newcss = newcss|merge([csstemp|join(" ")]) %}
+            {% endif %}
+          {% endfor %}
+
+          {% set newcss = newcss|join("} ")~ "}" ) %}
+
+        {% endfor %}#}
+        
+      {% endfor %}
+    </ul>
+
+    <h2>Crédits</h2>
+    {{ page.header.custom.credits|markdown }}
+{% endblock %}

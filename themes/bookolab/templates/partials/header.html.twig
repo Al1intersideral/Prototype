@@ -1,0 +1,248 @@
+{% if book == true %}
+  {% set parent = page %}
+{% else %}
+  {% set parent = page.parent %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page.title}}</title>
+
+    {% block javascripts %}
+      {% do assets.addJs('jquery', 100) %}
+    {% endblock %}
+
+    {% block assets deferred %}
+        {{ assets.css()|raw }}
+        {{ assets.js()|raw }}
+    {% endblock %}
+
+
+    {# css book #}
+    {# css general print / screen #}
+    <style>
+      {% for item in parent.header.fontsList %}
+
+            @font-face {
+              font-family: "{{ item.fontName  }}";
+              src: url("{{ parent.url }}/{{item.fontFile}}");
+              font-weight: {{ item.fontWeight  }};
+              font-style: {{ item.fontstyle  }}; 
+            }
+
+       {% endfor %}   
+    </style>
+    <style>
+      {{ parent.header.generalRules|raw }}
+      
+      {% if book == true %}
+         {% for contrib in parent.children %}
+            {% if contrib.header.generalcss != "" %}
+            {% set splitcss = contrib.header.generalcss|split("}") %}
+            {% set slug = ".contrib-" ~ contrib.slug %}
+            {% set newcss = [] %}
+            {% set csstemp = [] %}
+            {% for rule in splitcss %}
+              {% if rule != "" %}
+                {% set csstemp = [ slug , rule|replace({"\n": "", "\r": "", "\t": ""}) ]%}
+                {% set newcss = newcss|merge([csstemp|join(" ")]) %}
+              {% endif %}
+            {% endfor %}
+
+            {% set newcss = newcss|join("} ")~ "}"  %}
+            {{ newcss|raw }}
+            {% endif %}
+         {% endfor %}
+
+       {% else %}
+        {{ page.header.generalcss|raw }}
+      {% endif %}
+
+    </style>
+    {# css screen #}
+        <style>
+        @media screen {
+        {{ parent.header.cssScreen|raw }}
+
+        {% if book == true %}                
+          {% for contrib in parent.children %}
+                
+                {% if contrib.header.cssScreen != "" %}
+                {% set splitcss = contrib.header.cssScreen|split("}") %}
+                {% set slug = ".contrib-" ~ contrib.slug %}
+                {% set newcss = [] %}
+                {% set csstemp = [] %}
+
+                {% for rule in splitcss %}
+                  {% if rule != "" %}
+                    {% set csstemp = [ slug , rule|replace({"\n": "", "\r": "", "\t": ""}) ]%}
+                    {% set newcss = newcss|merge([csstemp|join(" ")]) %}
+                  {% endif %}
+                {% endfor %}
+
+                {% set newcss = newcss|join("} ")~ "}"  %}
+                {{ newcss|raw }}
+
+                {% endif %}
+        {% endfor %}
+      {% else %}
+        {{page.header.cssScreen|raw}}        
+      {% endif %}
+
+      }/*end media screen*/
+      </style> 
+      {% set cropscrosses = [] %}
+      {% for key,item in parent.header.cropcross %}
+        {% if item == 1 %}
+      
+          {% set cropscrosses = cropscrosses|merge([key]) %}
+
+        {% endif %}
+      {% endfor %}
+      {{ dump(cropscrosses)}}
+    {# css print #}
+    <style>
+        
+
+        
+        @media print {
+          /* PAGED JS CONFIG  */
+          @page {
+            size: {{ parent.header.bookWidth }}mm {{ parent.header.bookHeight}}mm;
+            
+            
+            marks: {{ cropscrosses|join(' ') }};
+            bleed: {{parent.header.bleed}}mm;
+
+            /* generated content here */
+            /*@top-left {
+              content: "Page " counter(page) " of " counter(pages);
+            }
+
+            @top-center {
+              
+              content: string(title);
+              text-transform: uppercase;
+            }*/
+
+              /* List of the margin boxes:
+              https://pagedjs.org/documentation/7-generated-content-in-margin-boxes/
+              @top-left-corner {
+              }
+              @top-left {
+              }
+              @top-center {
+              }
+              @top-right {
+              }
+              @top-right-corner {
+              }
+              @left-top {
+              }
+              @left-middle {
+              }
+              @left-bottom {
+              }
+              @right-top {
+              }
+              @right-middle {
+              }
+              @right-bottom {
+              }
+              @bottom-left-corner {
+              }
+              @bottom-left {
+              }
+              @bottom-center {
+              }
+              @bottom-right {
+              }
+              @bottom-right-corner {
+              }
+              */
+
+          }
+          @page:left {
+            
+            margin-top: {% if parent.header.leftMarginTop %}{{ parent.header.leftMarginTop }}{% else %}{{ parent.header.rightMarginTop }}{% endif %}mm;
+            margin-right: {% if parent.header.leftMarginRight %}{{ parent.header.leftMarginRight }}{% else %}{{ parent.header.rightMarginRight }}{% endif %}mm;
+            margin-bottom: {% if parent.header.leftMarginBottom %}{{ parent.header.leftMarginBottom }}{% else %}{{ parent.header.rightMarginBottom }}{% endif %}mm;
+            margin-left: {% if parent.header.leftMarginLeft %}{{ parent.header.leftMarginLeft }}{% else %}{{ parent.header.rightMarginLeft }}{% endif %}mm;
+          }
+
+          @page:right {
+            margin-top: {{ parent.header.rightMarginTop }}mm;
+            margin-right: {{ parent.header.rightMarginRight }}mm;
+            margin-bottom: {{ parent.header.rightMarginBottom }}mm;
+            margin-left: {{ parent.header.rightMarginLeft }}mm;
+          }
+          {% if book == true %}
+           
+              {{ parent.header.cssPrint|raw }}
+              {% for contrib in parent.children %}
+                  
+                  {% if contrib.header.cssPrint != "" %}
+                  {% set splitcss = contrib.header.cssPrint|split("}") %}
+                  {% set slug = ".contrib-" ~ contrib.slug %}
+                  {% set newcss = [] %}
+                  {% set csstemp = [] %}
+
+                  {% for rule in splitcss %}
+                    {% if rule != "" %}
+                      {% set csstemp = [ slug , rule|replace({"\n": "", "\r": "", "\t": ""}) ]%}
+                      {% set newcss = newcss|merge([csstemp|join(" ")]) %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% set newcss = newcss|join("} ")~ "}"  %}
+                 
+                  {{ newcss|raw }}
+                  {% endif %}
+              {% endfor %}
+            
+          {% else %}
+              {{ page.header.cssPrint|raw }}
+          {% endif %}
+        } /* end media print  */
+        </style>
+
+         
+        
+      
+        
+        {% if uri.param("web") == true %}
+          <script src="{{ url('theme://js/webspec.js')|e }}"></script>  
+        {% else %}
+          <script src="{{ url('theme://js/pagedjs/paged.js')|e }}"></script>
+          {% if page.header.hyphen == true and page.header.hyphenLang == true %}
+            <script src="{{ url('theme://js/hyphen.js')|e }}"></script>
+            <script src="{{ url('theme://js/hyphen-fr.js')|e }}"></script>
+          {% endif %}
+          {% if page.header.raga == true and page.header.hyphenLang == false %}
+            <script src="{{ url('theme://js/hyphen.js')|e }}"></script>
+            <script src="{{ url('theme://js/hyphen-en.js')|e }}"></script>
+          {% endif %}
+          {% if page.header.raga == true and page.header.hyphenLang == true %}
+            <script src="{{ url('theme://js/pagedjs/ragadjust.js')|e }}"></script>
+            <meta name="raga_elements" content="{{page.header.ragaconfigElements|join(",")}}">
+            <meta name="raga_methods" content="{{page.header.ragaconfigMethod|join(",")}}">
+            <meta name="raga_exceptions" content="{{page.header.ragaconfigExceptions|join(",")}}">
+          {% endif %}
+          {% if page.header.raga == true and page.header.hyphenLang == false %}
+            <script src="{{ url('theme://js/pagedjs/ragadjust_en.js')|e }}"></script>
+            <meta name="raga_elements" content="{{page.header.ragaconfigElements|join(",")}}">
+            <meta name="raga_methods" content="{{page.header.ragaconfigMethod|join(",")}}">
+          {% endif %}
+
+          <script src="{{ url('theme://js/pagedjs/handler.js')|e }}"></script>
+          <script src="{{ url('theme://js/pagedjs/TOC.js')|e }}"></script> 
+          
+
+          <link rel="stylesheet" href="{{ url('theme://css/interface.css')|e }}">
+        {% endif %}      
+        
+    
+</head>

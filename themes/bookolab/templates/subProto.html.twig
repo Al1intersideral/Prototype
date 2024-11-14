@@ -1,0 +1,28 @@
+{% include 'partials/subProtoHeader.html.twig' with {'page':page, 'book': true} %}
+
+<body class="{{ page.header.body_classes }}">
+    {% if uri.param("web") == true %}
+        <form action='' method='post'><input type='submit' value='download zip'></form>
+    {% endif %}
+        {% for contrib in page.children %}
+        <div id="{{contrib.slug}}" class="chapter contrib-{{contrib.slug}}  {{ contrib.header.body_classes }}">
+
+            
+            {% if contrib.header.affichertitre == true %}
+                {% if contrib.header.titletag == null %}
+                    {% set tag = "h1" %}
+                {% else %}
+                    {% set tag  =contrib.header.titletag %}
+                {% endif %}
+                <{{ tag }}> {{ contrib.title }}</{{ tag }}>
+            {% endif %}
+
+            {{contrib.content|raw}}
+          
+        </div>
+    {% endfor %}
+
+
+{% include 'partials/footer.html.twig' with {'page':page, 'book': true} %}
+</body>
+</html>

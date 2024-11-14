@@ -1,0 +1,14 @@
+{% include 'partials/header.html.twig' with {'page':page, 'book': false} %}
+
+<body>
+        <div class="chapter contrib-{{page.slug}}">
+testd
+{{page.title}}
+          {% for image in page.media.images %}
+            LOLOLO
+          {% endfor %}
+
+        </div>
+        {% include 'partials/footer.html.twig' with {'page':page, 'book': true} %}
+</body>
+</html>

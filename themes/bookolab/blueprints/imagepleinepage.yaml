@@ -1,0 +1,147 @@
+title: imagepleinepage
+extends@: default
+
+form:
+  fields:
+    tabs:
+      fields:
+        content:
+          fields:
+            columns:
+              type: columns
+              fields:
+                col1:
+                  type: column
+                  fields:
+                    header.imagegrise:
+                      type: toggle
+                      label: Niveau de gris ?
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: PLUGIN_ADMIN.YES
+                          0: PLUGIN_ADMIN.NO
+                      validate:
+                          type: bool
+                    header.activercouleurimage:
+                      type: toggle
+                      label: Colorer l'image ?
+                      highlight: 1
+                      options:
+                          1: PLUGIN_ADMIN.YES
+                          0: PLUGIN_ADMIN.NO
+                      validate:
+                          type: bool
+                col2:
+                  type: column
+                  fields:
+                    header.couleurimage:
+                      type: text
+                      label: Couleur image
+                      default: "var(--pantone)"
+                    header.fusionimage:
+                      type: selectize
+                      selectize:
+                          options:
+                              - text: "normal"
+                                value: "normal"
+                              - text: "multiply"
+                                value: "multiply"
+                              - text: "screen"
+                                value: "screen"
+                              - text: "overlay"
+                                value: "overlay"
+                              - text: "darken"
+                                value: "darken"
+                              - text: "lighten"
+                                value: "lighten"
+                              - text: "color-dodge"
+                                value: "color-dodge"
+                              - text: "color-burn"
+                                value: "color-burn"
+                              - text: "hard-light"
+                                value: "hard-light"
+                              - text: "soft-light"
+                                value: "soft-light"
+                              - text: "difference"
+                                value: "difference"
+                              - text: "exclusion"
+                                value: "exclusion"
+                              - text: "hue"
+                                value: "hue"
+                              - text: "saturation"
+                                value: "saturation"
+                              - text: "color"
+                                value: "color"
+                              - text: "luminosity"
+                                value: "luminosity"
+                      size: large
+                      default: screen
+                      label: Types de fusion
+                      classes: fancy
+                      help: PLUGIN_ADMIN.TAXONOMY_TYPES_HELP
+                      validate:
+                          type: commalist
+
+                col3:
+                  type: column
+                  fields:
+                    header.imageposition:
+                      type: selectize
+                      selectize:
+                          options:
+                              - text: "center"
+                                value: "center"
+                              - text: "left"
+                                value: "left"
+                              - text: "right"
+                                value: "right"
+                      size: large
+                      default: center
+                      label: Position de l'image
+                      classes: fancy
+                      help: PLUGIN_ADMIN.TAXONOMY_TYPES_HELP
+                      validate:
+                          type: commalist
+
+        cssPrint:
+          ordering@: 1
+          type: tab
+          title: css print
+          fields:
+            header.cssPrint:
+              label: css print
+              type: editor
+              classes: frontmatter
+              autofocus: true
+              codemirror:
+                mode: 'css'
+                indentUnit: 2
+                autofocus: true
+                indentWithTabs: true
+                lineNumbers: true
+                styleActiveLine: true
+
+        cssScreen:
+          ordering@: 2
+          type: tab
+          title: css screen
+          fields:
+            header.cssScreen:
+              label: css screen
+              type: editor
+              classes: frontmatter
+              autofocus: true
+              codemirror:
+                mode: 'css'
+                indentUnit: 2
+                autofocus: true
+                indentWithTabs: true
+                lineNumbers: true
+                styleActiveLine: true
+
+        # content:
+        #   fields:
+            # header.test:
+            #   type: starterButton
+            #   label: start Together Js

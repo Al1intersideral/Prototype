@@ -1,0 +1,378 @@
+title: book
+extends@: default
+
+form:
+  fields:
+    tabs:
+      fields:
+        cssPrint:
+          ordering@: 1
+          type: tab
+          title: CSS Styles
+          fields:
+            header.columns1:
+              type: columns
+              fields:
+                column1:
+                  type: column
+                  fields:
+                    header.generalRules:
+                      label: Régles Css Generales
+                      type: editor
+                      codemirror:
+                        mode: 'css'
+                        indentUnit: 2
+                        autofocus: true
+                        indentWithTabs: true
+                        lineNumbers: true
+                        styleActiveLine: true
+                column2:
+                  type: column
+                  fields:
+                    header.cssPrint:
+                      label: Régles Css Print
+                      type: editor
+                      autofocus: true
+                      codemirror:
+                        mode: 'css'
+                        indentUnit: 2
+                        autofocus: true
+                        indentWithTabs: true
+                        lineNumbers: true
+                        styleActiveLine: true
+                column3:
+                  type: column
+                  fields:
+                    header.cssScreen:
+                      label: Régles Css Screen
+                      type: editor
+                      autofocus: true
+                      codemirror:
+                        mode: 'css'
+                        indentUnit: 2
+                        autofocus: true
+                        indentWithTabs: true
+                        lineNumbers: true
+                        styleActiveLine: true
+
+        content:
+          ordering@: 0
+          fields:
+            content:
+              unset@: true
+            
+            section:
+              type: fieldset
+              title: Paramètres du livre
+              underline: true
+              ordering@: 2
+              collapsed: false
+              collapsible: true
+              fields:
+                header.titredim:
+                  ordering@: 1
+                  type: section
+                  title: Dimensions
+                  underline: true
+
+                columns:
+                  ordering@: 3
+                  type: columns
+                  fields:
+                    col1:
+                      type: column
+                      fields:
+                        header.bookWidth:
+                          style: vertical
+                          type: text
+                          label: Largeur (mm)
+                          validate:
+                            required: true
+                    col2:
+                      type: column
+                      fields:
+                        header.bookHeight:
+                          style: vertical
+                          type: text
+                          label: Hauteur (mm)
+                          validate:
+                            required: true
+                columns2:
+                  ordering@: 5
+                  type: columns
+                  fields:
+                    col4:
+                      type: column
+                      fields:
+                        header.rightMarginTop:
+                          style: vertical
+                          type: text
+                          label: Marge page droite - haut (mm)
+                    col5:
+                      type: column
+                      fields:
+                        header.rightMarginRight:
+                          style: vertical
+                          type: text
+                          label: Marge page droite - droite  (mm)
+                    col6:
+                      type: column
+                      fields:
+                        header.rightMarginBottom:
+                          style: vertical
+                          type: text
+                          label: Marge page droite - bas  (mm)
+                    col7:
+                      type: column
+                      fields:
+                        header.rightMarginLeft:
+                          style: vertical
+                          type: text
+                          label: Marge page droite - gauche  (mm)
+                columns3:
+                  ordering@: 6
+                  type: columns
+                  fields:
+                    col4:
+                      type: column
+                      fields:
+                        header.leftMarginTop:
+                          style: vertical
+                          type: text
+                          label: Marge page gauche - haut (mm)
+                          help: Si vide marges page gauche == marges page droite
+                          info: Si vide marges page gauche == marges page droite
+
+                    col5:
+                      type: column
+                      fields:
+                        header.leftMarginRight:
+                          style: vertical
+                          type: text
+                          label: Marge page gauche - droite  (mm)
+                          help: Si vide marges page gauche == marges page droite
+                          info: Si vide marges page gauche == marges page droite
+                    col6:
+                      type: column
+                      fields:
+                        header.leftMarginBottom:
+                          style: vertical
+                          type: text
+                          label: Marge page gauche - bas (mm)
+                          help: Si vide marges page gauche == marges page droite
+                          info: Si vide marges page gauche == marges page droite
+                    col7:
+                      type: column
+                      fields:
+                        header.leftMarginLeft:
+                          style: vertical
+                          type: text
+                          label: Marge page gauche - gauche  (mm)
+                          help: Si vide marges page gauche == marges page droite
+                          info: Si vide marges page gauche == marges page droite
+                        
+                columns4:
+                  ordering@: 6
+                  type: columns
+                  fields:
+                    col8:
+                      type: column
+                      fields:
+                        header.bleed:
+                          style: vertical
+                          type: text
+                          label: Fond perdu (mm)
+                        
+                    col9:
+                      type: column
+                      fields:
+                        header.cropcross:
+                          type: checkboxes
+                          style: vertical
+                          label: 'Trait de coupe et hirondelles'
+                          options:
+                              'crop': 'Crop'
+                              'cross' : 'Cross'
+                          use: keys
+                          multiple: true
+                          validate:
+                            type: array
+                    
+                header.titreoptions:
+                  ordering@: 6
+                  type: section
+                  title: Options
+                  underline: true
+                  
+                header.coupepages:
+                  ordering@: 7
+                  type: list
+                  style: vertical
+                  label: Règles de sauts de page
+                  fields:
+                    .nombalise:
+                      type: selectize
+                      label: "Cible (tag ou class)"
+                      validate:
+                        type: commalist 
+                    .quelbreak:
+                      type: select
+                      label: Position du Break
+                      multiple: true
+                      options:
+                        before: "break-before"
+                        after: "break-after"
+                      validate:
+                        type: array
+                    .nouvellepage:
+                      type: select
+                      label: Forcer position
+                      multiple: true
+                      options:
+                        right: "Page de droite"
+                        left: "Page de gauche"
+                        always: "L'un ou l'autre"
+                      validate:
+                        type: array
+                
+                header.archived:
+                  type: toggle
+                  label: Archiver le livre ?
+                  highlight: 1
+                  default: 0
+                  options:
+                      1: PLUGIN_ADMIN.YES
+                      0: PLUGIN_ADMIN.NO
+                  validate:
+                      type: bool
+
+            header.fontsList:
+              name: fonts;
+              type: list
+              style: vertical
+              label: Typographies utilisées
+              ordering@: 9
+              fields:
+                .fontName:
+                  label: Name
+                  type: text
+                .fontWeight:
+                  label: Weight
+                  type: number
+                .fontstyle:
+                  label: Style
+                  type: select
+                  options:
+                    italic:
+                      value: 'Italic'
+                    normal:
+                      value: 'Normal'
+                .fontFile:
+                  label: Font files
+                  type: filepicker
+                  preview_images: true
+
+            section2:
+              type: fieldset
+              title: Drapeaux et césures
+              underline: true
+              ordering@: 10
+              collapsed: true
+              collapsible: true
+              fields:
+                columns1:
+                  type: columns
+                  fields:
+                    columnA:
+                      type: column
+                      fields:
+                        header.raga:
+                          type: toggle
+                          outerclasses: conditional condition
+                          label: Activer ajustement automatique
+                          help: pour text en drapeau
+                          highlight: 1
+                          default: 1
+                          options:
+                              1: oui
+                              0: non
+                          validate:
+                              type: bool
+                    columnB:
+                      type: column
+                      fields:
+                        header.hyphen:
+                          type: toggle
+                          # outerclasses: conditional condition
+                          label: Activer césure automatique
+                          help: pour text justifié
+                          highlight: 1
+                          default: 0
+                          options:
+                              1: oui
+                              0: non
+                          validate:
+                              type: bool
+                    columnC:
+                      type: column
+                      fields:
+                        header.hyphenLang:
+                              type: toggle
+                              # outerclasses: conditional condition
+                              label: language à utiliser
+                              highlight: 1
+                              default: 0
+                              options:
+                                  1: fr
+                                  0: en
+                              validate:
+                                  type: bool
+                section:
+                  type: section
+                  title: Ragadjust options
+                columns2:
+                  type: columns
+                  outerclasses: conditional option option-1
+                  fields:
+                    columnC:
+                      type: column
+                      fields:
+                        header.ragaconfigElements:
+                          type: selectize
+                          label: "Tags html à cibler"
+                          validate:
+                            type: commalist
+                    columnD:
+                      type: column
+                      fields:
+                        header.ragaconfigMethod:
+                          type: select
+                          label: Méthode à utiliser
+                          multiple: true
+                          options:
+                            all: "all – Employs all methods."
+                            emphasis: "emphasis – Text of three or less words in bold or italics does not break across lines."
+                            small-words: "small-words – Breaks lines before words of three or less characters."
+                            prepositions: "prepositions – Breaks lines before the other prepositions."
+                            dashes: "dashes – Breaks lines before hyphens and dashes."
+                            pronouns: "(fr) pronouns – Breaks lines before pronouns."
+                            articles: "(fr) articles – Breaks lines before articles."
+                            conjunctions: "(fr) conjunctions – Breaks lines before conjunctions."
+                            determiners: "(fr) determiners – Breaks lines before determiners."
+                            short_prepositions: "(fr) short_prepositions – Breaks lines before short prepositions."
+                          validate:
+                            type: array
+                    columnE:
+                      type: column
+                      fields:
+                        header.ragaconfigExceptions:
+                          type: selectize
+                          label: Exceptions ()
+                          validate:
+                            type: commalist
+
+
+            header.collaborate:
+              ordering@: 13
+              type: starterButton
+              label: start Together Js

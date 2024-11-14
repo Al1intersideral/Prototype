@@ -1,0 +1,29 @@
+{
+  "name": "armansansd/togetherhub",
+  "type": "grav-plugin",
+  "description": "together hub link",
+  "keywords": ["plugin"],
+  "homepage": "https://github.com/armansansd/grav-plugin-togetherhub",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "armansansd",
+      "email": "contact@armsansd.net",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Grav\\Plugin\\Togetherhub\\": "classes/"
+    },
+    "classmap":  ["togetherhub.php"]
+  },
+  "config": {
+    "platform": {
+      "php": "7.1.3"
+    }
+  }
+}

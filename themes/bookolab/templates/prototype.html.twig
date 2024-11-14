@@ -1,0 +1,99 @@
+{% include 'partials/ProtoHeader.html.twig' with {'page':page, 'book': true} %}
+
+<body
+	class="{{ page.header.body_classes }}">
+
+	{# Si format Web on cherche les dossiers parents pour afficher les couvertures de chaques rubrique et en faire un lien pour les enfants du dossier #}
+	{% if uri.param("web") == true %}
+		{# <form action='' method='post'><input type='submit' value='download zip'></form> #}
+	<div class="prototype">
+		<div class="siteTag">	
+			<img class="imagetitre"src="prototype.png">
+			<h1 class="titreProto">mini</h1>
+		</div>
+		<div class="content">
+			{% for contrib in page.children %}
+				<div id="{{contrib.slug}}" class="chapter contrib-{{contrib.slug}}  {{ contrib.header.body_classes }}">
+				
+
+					{% for image in contrib.media.images %}
+						<a href="#" id="{{contrib.title}}" class="contrib-{{contrib.slug}}" data-children='{% for article in contrib.children %}{{ article.content }}{% endfor %}'>
+							<img src="{{image.url}}">
+						</a>
+					{% endfor %}	
+						{% if contrib.header.affichertitre == true %}
+						{% if contrib.header.titletag == null %}
+							{% set tag = "h1" %}
+						{% else %}
+							{% set tag = contrib.header.titletag %}
+						{% endif %}
+						<{{tag}}>
+							{{ contrib.title }}</{{tag}}>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		</div>
+		<div class="about"><span class="aboutButton">À propos</span></div>
+		<div class="articleAbout invisible">
+			<div class="articleAboutHeader">
+				<span class="articleAboutTitre">À propos</span>
+				<span class="closeMenu">X</span>
+				
+			</div>
+			<div class="article">
+				<img class="imageAboutTitre" src="prototypemini_cover_Page_1.png">
+				<span class="articleAboutContent">
+					<h1>Prototype-Mini</h1>
+					<h1>Workshop</h1>
+					<h1>EESAB 2024</h1>
+					<p>PROTOTYPE-mini est une revue explorant des imaginaires d'émancipation à travers des prototypes de futurs ou de mondes alternatifs. Conçue durant un workshop d'une journée, cette publication est une version condensée de PROTOTYPE. Invitée par le club numérique de l’EESAB de Rennes et organisée par AKIMBO et Alain Maréchal, elle réunit dix jeunes auteur·ices, chacun·e déployant une fiction de leur choix à travers un poster et son verso.</p>
+					<p>La publication utilise l'outil web-to-print Paged.Js avec Bookolab, ainsi que SVRPT pour la couverture, afin de forger des formes d'expression innovantes en harmonie avec l'identité propre de chaque participant·e.</p>
+					</br>
+					</br>
+					<p>CREDITS</br>
+					<a href="https://gitlab.com/armansansd/bookolab/">Bookolab</a>:</br>
+					Conception et coordination : Lucile Haute</br>
+					Développement et design : Arman Mohtadji & Benjamin Dumond (Bonjour Monde).</br>
+					Librairie de mise en page PDF : Paged.js</br>
+					<a href="https://pagedjs.org">Paged.js</a></br>
+					<p>Workshop proposé par Adrien Bonboire, Maxime Bouchéras, Alain Maréchal</p>
+					<p>Développement : Alain Maréchal</p>
+					
+
+</p>
+				</span>
+			</div>
+		</div>
+
+	{% endif %}
+
+
+	{# Si format Livre on envoie directement la recherche au enfant des différents dossier et les ajouters les uns après les autres #}
+
+	{% if uri.param("web") == false %}
+		{% for dossier in page.children %}
+			{% for contrib in dossier.children %}
+				<div id="{{contrib.slug}}" class="chapter contrib-{{contrib.slug}} {{ contrib.title }} {{ contrib.header.body_classes }}">
+
+
+					{% if dossier.header.affichertitre == true %}
+						{% if dossier.header.titletag == null %}
+							{% set tag = "h1" %}
+						{% else %}
+							{% set tag = dossier.header.titletag %}
+						{% endif %}
+						<{{tag}}>
+							{{ dossier.title }}</{{tag}}>
+					{% endif %}
+
+					{{contrib.content|raw}}
+
+				</div>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
+
+
+	{% include 'partials/footer.html.twig' with {'page':page, 'book': true} %}
+</body></html>

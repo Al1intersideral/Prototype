@@ -1,0 +1,183 @@
+@page:right{
+       @left-middle {
+      content: string(titreContrib);
+      color: gray;
+      font-family:'ChaosType';
+      font-size: 27pt;
+      text-align: start;
+      letter-spacing: -0.11cm;
+      transform: translate(-50%)rotate(-90deg);
+      float:right;
+      width: 29.7cm;
+      height: 1.5cm;
+      /* padding-left:1.1em; */
+    }
+  }
+
+@page:left { 
+    @left-middle{
+      content: string(nameContrib);
+      color: gray;
+      width: 29.7cm;
+      height:1.5cm;
+      font-family:'ChaosType';
+      font-size: 27pt;
+      /* padding-right: 1.22cm; */
+      padding-right:1.1cm ;
+      text-align: end;
+      letter-spacing: -0.11cm;
+      transform: translate(-47.1%)rotate(-90deg);
+      transform: translate(-47.1%)rotate(-90deg);
+    }
+    @right-middle {
+      content: string(titreContrib);
+      color: gray;
+      font-family:'ChaosType';
+      font-size: 27pt;
+      letter-spacing: -0.11cm;
+      text-align: start;
+      transform: translate(-45%) rotate(-90deg);
+      float:right;
+      width: 29.7cm;
+      height: 1.5cm;
+  }
+  }
+
+@page:first{
+  @bottom-right{
+    content:none;
+  } 
+}
+
+@page:nth(2){
+  @bottom-left{
+    content:none;
+  } 
+}
+
+/* PAGE INFORMATIONS */
+  h5,h6 {
+    display: none;
+  }
+
+  h6{
+    string-set:titreContrib content(text);
+    display: none;
+  }
+
+  h5{
+    display:none;
+    string-set:nameContrib content(text);
+  }
+
+/* PAGE TEMPLATE */
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Textcourant';
+  
+}
+
+
+.break-after {
+  page-break-after: always;
+}
+
+.break-before {
+  page-break-before: always;
+}
+  
+
+blockquote{
+  text-align: justify;
+  hyphens: auto;
+  right:0;
+  column-count: 2;
+  margin-left:0;
+  margin-right:0;
+}
+  
+
+
+  h1{
+    font-family: 'ChaosType';
+    color: gray;
+    letter-spacing: -0.04em;
+
+  }
+
+  h2{
+    font-size:18pt;
+  }
+
+/*   h3{
+    font-size:12pt;
+    margin:-1cm;
+  } */
+  
+  p {
+    width:90%;
+    font-size: 9pt;
+    line-height: 11.35pt;
+    letter-spacing: 0.027em;
+    word-spacing: -0.00em;
+    font-feature-settings: "onum";
+
+  }
+  
+  .left {
+    float: left;
+    width: 50%;
+    padding-top: 2.5mm;
+    padding-right: 5mm;
+    
+  }
+  
+  .right {
+    float: right;
+    width: 50%;
+    padding-top: 2.5mm;
+    padding-left: 5mm;
+  }
+
+  .chapter{
+    margin:0;
+    padding:0;
+  }
+
+  .recal{
+    margin-top:0.2cm;
+  }
+
+  s{
+    color:white;
+    padding:0.1cm;
+    background-color: black;
+    text-decoration: none;
+  }
+
+  h3 {
+    float:left;
+    column-count: 1;
+    margin-top:0.1cm;
+    margin-bottom:0.5cm;
+    margin-left:0.5cm;
+    transform: rotate(-5deg);
+    width:90%;
+  }
+  h3 img{
+    float:left;
+    width: 30%;
+    margin:0;
+  }
+
+  h4{
+    margin-left:5cm;
+  }
