@@ -1,0 +1,31 @@
+enabled: true
+folders:
+  - pages
+SyncNotice: null
+sync:
+  on_save: true
+  on_delete: true
+  on_media: true
+  cron_enable: false
+  cron_at: '0 12,23 * * *'
+local_repository: null
+repository: null
+no_user: '0'
+user: null
+password: null
+webhook: /_git-sync-6cb2c5e197fa
+webhook_enabled: '0'
+webhook_secret: eb063456f8f6d17cea935b536c291bfab45d691b8653d2d5
+branch: master
+remote:
+  name: origin
+  branch: master
+git:
+  author: gituser
+  message: '(Grav GitSync) Automatic Commit'
+  name: GitSync
+  email: git-sync@trilby.media
+  bin: git
+  ignore: null
+  private_key: null
+logging: false

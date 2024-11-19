@@ -1,0 +1,9 @@
+version: '1.2'
+timestamp: 1728475960
+count: 1
+index:
+  admin:
+    storage_key: admin
+    storage_timestamp: 1728475959
+    key: admin
+    email: joe@joedamn.com
