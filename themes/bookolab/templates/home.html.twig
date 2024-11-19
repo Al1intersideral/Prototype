@@ -1,16 +1,28 @@
 {% extends 'partials/base.html.twig' %}
 {% block content %}
-<h1 class="titrebookolab"> Bookolab </h1>
-{% for section in page.header.custom.listesections %}
-            <div class="entree-section">
-                <h2>{{ section.nomsection|markdown }}</h2>
-                <div>{{ section.textesection|markdown }}</div>
-            </div>
-        {% endfor %}
 
+<div class="prototype">
+		<div class="siteTag">	
+			<img class="imagetitre"src="home/prototype-mini/prototypemini_title_02.png">
+		</div>
+		<div class="content">
+			{% for contrib in page.children %}
+				<div id="{{contrib.slug}}" class="chapter contrib-{{contrib.slug}}  {{ contrib.header.body_classes }}">
+				
+						{% if contrib.header.affichertitre == true %}
+						{% if contrib.header.titletag == null %}
+							{% set tag = "h1" %}
+						{% else %}
+							{% set tag = contrib.header.titletag %}
+						{% endif %}
+						<{{tag}}>
+							{{ contrib.title }}</{{tag}}>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		</div>
     <a href="admin" class="espace-editorial">Espace éditorial</a>
-
-    <h2> Projets éditoriaux en cours </h2>
 
     <ul class="bookList">
       {% for book in page.children %}
@@ -51,6 +63,4 @@
       {% endfor %}
     </ul>
 
-    <h2>Crédits</h2>
-    {{ page.header.custom.credits|markdown }}
 {% endblock %}
