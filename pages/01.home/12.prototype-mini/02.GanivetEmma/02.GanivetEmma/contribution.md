@@ -2,7 +2,7 @@
 title: 'Emma Ganivet'
 affichertitre: true
 titletag: h5
-media_order: 'ok.jpg,okok.jpg,ok.JPG'
+media_order: ok.JPG
 process:
     markdown: true
     twig: false
