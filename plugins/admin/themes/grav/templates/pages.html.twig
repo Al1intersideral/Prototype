@@ -32,19 +32,7 @@
             (p.visible ? "PLUGIN_ADMIN.VISIBLE"|t ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|t ~ ' &bull; ') ~
             (p.published ? "PLUGIN_ADMIN.PUBLISHED"|t ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|t ~ ' &bull; ') %}
 
-        {% set page_url = 'www.google.fr' %}
-
-        {# {% set is_authorized = true %}
-        {% if not grav.user.access.admin["super"]%}
-            {% set is_authorized = false %}
-        {% endif %}
-
-        {% for group in user_groups %}
-           {% if group == book.header.permissions.groups|keys[0] %}
-               {% set is_authorized = true %}
-           {% endif %}
-        {% endfor %}
-#}
+        {% set page_url = getPageUrl(p) %}
 
         <li class="page-item" data-nav-id="{{ p.route }}">
             <div class="row page-item__row">
@@ -290,9 +278,7 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="clear admin-pages">
-    
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
