@@ -1,4 +1,4 @@
-class DoublePageBackground extends Paged.Handler {
+  class DoublePageBackground extends Paged.Handler {
   constructor(chunker, polisher, caller) {
     super(chunker, polisher, caller);
     this.pagedDoublepage;
@@ -12,8 +12,9 @@ class DoublePageBackground extends Paged.Handler {
     doublepages.forEach((doublepage) => {
       let breakAfter = getNextSibling(doublepage, function (sibling) {
         return sibling.matches('.break-after');
-        console.log(breakAfter);
+        
       });
+      console.log(breakAfter);
       if (breakAfter) {
         var imageClone = document.createElement("img");
         imageClone.src = doublepage.src;

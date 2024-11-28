@@ -1,7 +1,7 @@
 ---
 title: Home
 access:
-    site.login: true
+    site.login: false
     admin.login: true
 body_classes: 'title-center title-h1h2'
 custom:

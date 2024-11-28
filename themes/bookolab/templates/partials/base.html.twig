@@ -29,6 +29,8 @@
     {{ assets.css()|raw }}
     {{ assets.js()|raw }}
 {% endblock %}
+
+<script src="{{ url('theme://js/custom-home.js')|e }}"></script>
 </head>
 <body id="top" class="{{ page.header.body_classes|e }}">
 {% block header %}

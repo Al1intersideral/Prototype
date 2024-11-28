@@ -24,7 +24,7 @@
     {# css book #}
     {# css general print / screen #}
     <style>
-      {% for item in page.parent.header.fontsList %}
+      {% for item in page.header.fontsList %}
 
           @font-face {
               font-family: "{{ item.fontName }}";
@@ -36,10 +36,10 @@
       {% endfor %}
     </style>
     <style>
-      {{ page.parent.header.generalRules|raw }}
+      {{ page.header.generalRules|raw }}
       
       {% if book == true %}
-         {% for contrib in page.parent.children %}
+         {% for contrib in parent.children %}
             {% if contrib.header.generalcss != "" %}
             {% set splitcss = contrib.header.generalcss|split("}") %}
             {% set slug = ".contrib-" ~ contrib.slug %}
@@ -61,7 +61,7 @@
         {{ page.header.generalcss|raw }}
       {% endif %}
 
-      /* Les images pleines pages */
+/* Les images pleines pages */
       {% for contrib in parent.children %}
         {% if contrib.visible %}
           {% if contrib.template == "imagepleinepage" %}
@@ -87,7 +87,8 @@
             }
           {% endif %}
         {% endif %}
-      {% endfor %}  
+      {% endfor %}
+
 
     {% for reglesbreak in parent.header.coupepages %}
         {{ reglesbreak.nombalise[0]|raw }}{
@@ -239,7 +240,7 @@
               {% endfor %}
             
           {% else %}
-              {{ page.header.cssPrint|raw }}
+              {{ page.header.cssPrint|raw }} 
           {% endif %}
         } /* end media print  */
         </style>
@@ -250,9 +251,12 @@
         
         {% if uri.param("web") == true %}
           <script src="{{ url('theme://js/webspec.js')|e }}"></script>  
-        {% else %}          
+        {% else %}      
+        
           <script src="{{ url('theme://js/pagedjs/paged.js')|e }}"></script>
+          
           <link rel="stylesheet" href="{{url("theme://css/#{page.parent.title}/#{page.parent.title}.css")|e}}">
+          
           
           
           {% if page.header.hyphen == true and page.header.hyphenLang == true %}
@@ -274,11 +278,12 @@
             <meta name="raga_elements" content="{{page.header.ragaconfigElements|join(",")}}">
             <meta name="raga_methods" content="{{page.header.ragaconfigMethod|join(",")}}">
           {% endif %}
-          
+           
           <script src="{{ url('theme://js/pagedjs/handler.js')|e }}"></script>
           <script src="{{ url('theme://js/pagedjs/TOC.js')|e }}"></script> 
           <script src="{{ url('theme://js/imposition.js')|e }}"></script> 
-          
+          <script src="{{ url('theme://js/double-page.js')|e }}"></script>  
+           
           
 
           <link rel="stylesheet" href="{{ url('theme://css/interface.css')|e }}">

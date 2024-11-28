@@ -23,8 +23,8 @@
     {##}
     {# css book #}
     {# css general print / screen #}
-    <style>
-      {% for item in parent.header.fontsList %}
+<style>
+      {% for item in page.header.fontsList %}
 
             @font-face {
               font-family: "{{ item.fontName  }}";
@@ -34,14 +34,15 @@
             }
 
        {% endfor %}   
-    </style>
-    <style>
+</style>
+
+<style>
       {{ parent.header.generalRules|raw }}
       
       {% if book == true %}
          {% for contrib in page.children %}
-            {% if contrib.header.generalcss != "" %}
-            {% set splitcss = contrib.header.generalcss|split("}") %}
+            {% if contrib.header.printcss != "" %}
+            {% set splitcss = contrib.header.printcss|split("}") %}
             {% set slug = ".contrib-" ~ contrib.slug %}
             {% set newcss = [] %}
             {% set csstemp = [] %}
@@ -89,18 +90,20 @@
           {% endif %}
         {% endif %}
       {% endfor %}
-      {% endfor %}    
+      {% endfor %}
 
     {% for reglesbreak in parent.header.coupepages %}
         {{ reglesbreak.nombalise[0]|raw }}{
           break-{{ reglesbreak.quelbreak[0]|raw }} : {{ reglesbreak.nouvellepage[0]|raw }};
         }
     {% endfor %}
+</style>
 
 
-    </style>
+
+
     {# css screen #}
-        <style>
+<style>
         @media screen {
         {{ parent.header.cssScreen|raw }}
 
@@ -130,7 +133,10 @@
       {% endif %}
 
       }/*end media screen*/
-      </style> 
+</style> 
+      
+      
+      
       {% set cropscrosses = [] %}
       {% for key,item in parent.header.cropcross %}
         {% if item == 1 %}
@@ -140,12 +146,15 @@
         {% endif %}
       {% endfor %}
       {{ dump(cropscrosses)}}
-    {# css print #}
-    <style>
-        
 
-        
-        @media print {
+
+
+
+{# css print #}
+
+
+<style>
+@media print {
           /* PAGED JS CONFIG  */
           @page {
             size: {{ parent.header.bookWidth }}mm {{ parent.header.bookHeight}}mm;
@@ -243,21 +252,22 @@
           {% else %}
               {{ page.header.cssPrint|raw }}
           {% endif %}
+
         } /* end media print  */
-        </style>
-        <style>body{--paged-layout:booklet;}</style>
+</style>
+
+<style>
+  body{--paged-layout:booklet;}
+</style>
          
-        
-      
         
         {% if uri.param("web") == true %}
           <script src="{{ url('theme://js/webspec.js')|e }}"></script>  
 		      <link rel="stylesheet" href="{{url("theme://css/#{page.title}/#{page.title}-web.css")|e}}">
         {% else %}
           <link rel="stylesheet" href="{{url("theme://css/#{page.title}/#{page.title}.css")|e}}">
-          
           <script src="{{ url('theme://js/pagedjs/paged.js')|e }}"></script>
-          
+           
           
           {% if page.header.hyphen == true and page.header.hyphenLang == true %}
             <script src="{{ url('theme://js/hyphen.js')|e }}"></script>
@@ -281,6 +291,7 @@
           
           <script src="{{ url('theme://js/pagedjs/handler.js')|e }}"></script>
           <script src="{{ url('theme://js/pagedjs/TOC.js')|e }}"></script> 
+          <script src="{{ url('theme://js/double-page.js')|e }}"></script>
           {# <script src="{{ url('theme://js/imposition.js')|e }}"></script>  #}
           
           

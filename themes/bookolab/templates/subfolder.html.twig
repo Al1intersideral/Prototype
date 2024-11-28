@@ -1,0 +1,60 @@
+{% extends 'partials/base.html.twig' %}
+{% block content %}
+
+	<div class="prototype">
+		<div class="siteTag">
+			<img class="imagetitre" src="../home/prototype-mini/prototypemini_title_02.png">
+		</div>
+		<div class="content">
+			{% for contrib in page.children %}
+				<div id="{{contrib.slug}}" class="chapter contrib-{{contrib.slug}}  {{ contrib.header.body_classes }}">
+
+					{% if contrib.header.affichertitre == true %}
+						{% if contrib.header.titletag == null %}
+							{% set tag = "h1" %}
+						{% else %}
+							{% set tag = contrib.header.titletag %}
+						{% endif %}
+						<{{tag}}>
+							{{ contrib.title }}</{{tag}}>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<a href="admin" class="espace-editorial">Espace éditorial</a>
+
+	<ul class="bookList">
+		{% for book in page.children %}
+			<ul>
+				<li>
+					<a class="boutton-book" href="{{ book.url }}">Access</a>
+					·
+					{{ book.title }}
+					{% endif %}
+				</li>
+			</ul>
+
+			{# function pour css parsing
+			        {% for contrib in book.children %}
+			
+			          {% set splitcss = contrib.header.cssPrint|split("}") %}
+			          {% set slug = ".contrib-" ~ contrib.slug %}
+			          {% set newcss = [] %}
+			          {% set csstemp = [] %}
+			
+			          {% for rule in splitcss %}
+			            {% if rule != "" %}
+			              {% set csstemp = [ slug , rule|replace({"\n": "", "\r": "", "\t": ""}) ]%}
+			              {% set newcss = newcss|merge([csstemp|join(" ")]) %}
+			            {% endif %}
+			          {% endfor %}
+			
+			          {% set newcss = newcss|join("} ")~ "}" ) %}
+			
+			        {% endfor %}#}
+
+		{% endfor %}
+	</ul>
+
+{% endblock %}
