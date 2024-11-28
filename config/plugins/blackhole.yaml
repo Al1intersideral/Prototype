@@ -1,9 +1,0 @@
-enabled: false
-generate:
-  output_url: 'http://localhost/booklouse/'
-  output_path: web_static/book_01
-  routes: null
-  use_sitemap: false
-  simultaneous: null
-  assets: true
-  force: true
